@@ -8,7 +8,10 @@ int safe_append(char **s1,char* s2)
 	if (s2 == NULL) return 0;
 	if ((len_s2 = strlen(s2)) == 0) return 0;
 
-	len_s1 = strlen(*s1);
+	if (*s1 == NULL) 
+		len_s1 = 0;
+	else
+		len_s1 = strlen(*s1);
 	
 	/* Make space for expanded string */
 	if (*s1 == NULL)
