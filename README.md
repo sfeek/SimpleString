@@ -7,7 +7,7 @@ To compile, just "make" at the command prompt.
 
 Notes:
 
-	Remember to set your char* variables to NULL before calling safe_ functions.
+	Remember to set your char* variables to NULL before calling the first safe_ function.
 	Remember to free() them when finished to prevent memory leaks.
 
 
