@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "simplestring.h"
 
 int main(void)
@@ -46,6 +47,15 @@ int main(void)
 	}
 
 	printf("%s",s1);
+	sleep (5);
+
+	if (safe_truncate(&s1,5))
+	{
+		printf("Truncate error occurred\n");
+		return 1;
+	}
+	
+	printf("The truncated string: %s\n", s1);
 	
 	free(s1);
 	free(s2);
