@@ -8,16 +8,17 @@ int safe_append(char **s1,char* s2)
 	if (s2 == NULL) return 0;
 	if ((len_s2 = strlen(s2)) == 0) return 0;
 
-	if (*s1 == NULL) 
-		len_s1 = 0;
-	else
-		len_s1 = strlen(*s1);
-	
 	/* Make space for expanded string */
 	if (*s1 == NULL)
-		*s1 = malloc(len_s1+len_s2+1);
+	{
+		len_s1 = 0;
+		*s1 = calloc(len_s1+len_s2+1, sizeof(char));
+	}
 	else
+	{
+		len_s1 = strlen(*s1);
 		*s1 = realloc(*s1,len_s1+len_s2+1);
+	}
 
 	if (*s1 == NULL) return 1;
 
@@ -39,7 +40,7 @@ int safe_copy(char **s,char *s1)
 	
 	/* Make space */
 	if (*s == NULL) 
-		*s = malloc(len+1);
+		*s = calloc(len+1,sizeof(char));
 	else
 		*s = realloc(*s,len+1);
 
