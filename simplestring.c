@@ -83,9 +83,9 @@ int safe_truncate(char **s, int len)
 		else	
 			*s=t;
 	}
+	else
+		return 1;
 
-	if (*s==NULL) return 0;
-	
 	(*s)[len]='\0';
 	
 	return 0;
