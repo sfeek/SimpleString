@@ -73,6 +73,15 @@ int main (void)
 
 	printf ("The concat string: %s\n", s1);
 
+	if (safe_wrap (&s1, 40))
+	{
+		printf ("Wrap error occurred\n");
+		error = FAIL;
+		goto main_cleanup;
+	}
+
+	printf ("\n\n%s\n", s1);
+
 	if (safe_sprintf (&s1, "%s", "This is sprintf!\n"))
 	{
 		printf ("Sprintf error occurred\n");

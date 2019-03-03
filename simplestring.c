@@ -189,3 +189,39 @@ int safe_replace(char **s, const char *oldW, const char *newW)
 	return 0;
 }
 
+int safe_wrap (char **s,int columns)
+{
+	int nextspace = 0;
+	int l,w;
+	char *t;
+
+	if ( *s == NULL ) return 1;
+
+	l = strlen (*s);
+	
+	t = realloc (*s, l+1);  /* Make space */
+	if (t == NULL)
+	{
+		free (*s);
+		return 1;
+	}
+
+	for (w = 1; w < l; w++) /* Make nice Line Wraps to columns-ish */
+	{
+		if (w % columns == 0)
+			nextspace = 1;
+
+		if (t[w] == ' ')
+		{
+			if (nextspace == 1)
+			{
+				t[w] = '\n';
+				nextspace = 0;
+			}
+		}
+	}
+
+	*s = t;
+
+	return 0;
+}

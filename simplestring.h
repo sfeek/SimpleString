@@ -9,3 +9,4 @@ int safe_copy (char **, char *);
 int safe_sprintf (char **, char *fmt, ... );
 int safe_truncate (char **, int);
 int safe_replace (char **, const char *, const char *);
+int safe_wrap (char **, int);
