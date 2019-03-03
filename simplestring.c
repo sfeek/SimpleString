@@ -92,8 +92,9 @@ int safe_truncate (char **s, int len)
 		else
 			*s = t;
 	}
-	else
-		return 1;
+
+	if (*s == NULL)
+		return 0;
 
 	(*s)[len] = '\0';
 	return 0;
@@ -131,6 +132,62 @@ int safe_sprintf (char **s, char *fmt, ... )
 	va_start (args, fmt);
 	vsprintf (*s, fmt, args);
 	va_end (args);
+	return 0;
+}
+
+int safe_replace(char **s, const char *oldW, const char *newW)
+{
+	char *str;
+	int i,j,l, cnt = 0;
+	char *r;
+	int newWlen = strlen(newW);
+	int oldWlen = strlen(oldW);
+
+	if (*s == NULL) return 1;
+	str = strdup (*s);
+	l = strlen (str);
+
+	/* Count number of times we need to replace */
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (strstr(&str[i], oldW) == &str[i])
+		{
+			cnt++;
+			i += oldWlen - 1;
+		}
+	}
+
+	/* Make space */
+	r = realloc (*s, i + cnt * (newWlen - oldWlen) + 1);
+
+	if ( r == NULL )
+	{
+		free (*s);
+		return 1;
+	}
+
+	/* Replace the words */	
+	i = 0;
+	j = 0;
+	for ( i=0; i < l;)
+	{
+		if (strstr(str+i, oldW) == str+i )
+		{
+			strcpy(&r[i], newW);
+			j += newWlen;
+			i += oldWlen;
+		}
+		else
+			r[j++] = str[i++];
+	}
+
+	/* Terminate and cleanup */
+	r[j] = '\0';
+
+	free (str);
+
+	*s = r;
+
 	return 0;
 }
 

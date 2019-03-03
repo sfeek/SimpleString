@@ -47,6 +47,13 @@ int main (void)
 		goto main_cleanup;
 	}
 
+	if (safe_replace (&s1, "fine", "abcdefghijklmnopqrstuvwyz"))
+	{
+		printf ("Concat error occurred\n");
+		error = FAIL;
+		goto main_cleanup;
+	}
+
 	printf ("The concat string: %s\n", s1);
 
 	if (safe_sprintf (&s1, "%s", "This is sprintf!\n"))
