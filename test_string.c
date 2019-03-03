@@ -11,6 +11,23 @@ int main (void)
 	int error = SUCCESS;
 	char *s1 = NULL;
 	char *s2 = NULL;
+	char *s3 = NULL;
+
+	if (safe_copy (&s3, "@ We are taking out all spaces    from this sentence! "))
+	{
+		printf ("Copy error occurred\n");
+		error = FAIL;
+		goto main_cleanup;
+	}
+
+	if (safe_replace (&s3, " ", ""))
+	{
+		printf ("Concat error occurred\n");
+		error = FAIL;
+		goto main_cleanup;
+	}
+
+	printf ("%s\n", s3);
 
 	if (safe_copy (&s1, "This is a"))
 	{
@@ -77,5 +94,6 @@ int main (void)
 main_cleanup:
 	free (s1);
 	free (s2);
+	free (s3);
 	return error;
 }

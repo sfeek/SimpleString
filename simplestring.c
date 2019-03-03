@@ -171,7 +171,7 @@ int safe_replace(char **s, const char *oldW, const char *newW)
 	{
 		if (strstr(str+i, oldW) == str+i )
 		{
-			strcpy(&r[i], newW);
+			if (newW[0] != '\0') strcpy(&r[i], newW); /* Copy only if the new string is not empty */
 			j += newWlen;
 			i += oldWlen;
 		}
