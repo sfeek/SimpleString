@@ -100,8 +100,6 @@ int safe_truncate (char **s, int len)
 	return 0;
 }
 
-
-/* Safe string printf */
 int safe_sprintf (char **s, char *fmt, ... )
 {
 	char *t;
