@@ -99,6 +99,7 @@ int main (void)
 	}
 
 	printf ("The truncated string: %s\n", s1);
+
 main_cleanup:
 	free (s1);
 	free (s2);

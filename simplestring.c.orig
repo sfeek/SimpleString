@@ -133,24 +133,22 @@ int safe_sprintf (char **s, char *fmt, ... )
 	return 0;
 }
 
-int safe_replace (char **s, const char *oldW, const char *newW)
+int safe_replace(char **s, const char *oldW, const char *newW)
 {
 	char *str;
-	int i, j, l, cnt = 0;
+	int i,j,l, cnt = 0;
 	char *r;
-	int newWlen = strlen (newW);
-	int oldWlen = strlen (oldW);
+	int newWlen = strlen(newW);
+	int oldWlen = strlen(oldW);
 
-	if (*s == NULL)
-		return 1;
-
+	if (*s == NULL) return 1;
 	str = strdup (*s);
 	l = strlen (str);
 
 	/* Count number of times we need to replace */
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (strstr (&str[i], oldW) == &str[i])
+		if (strstr(&str[i], oldW) == &str[i])
 		{
 			cnt++;
 			i += oldWlen - 1;
@@ -166,17 +164,14 @@ int safe_replace (char **s, const char *oldW, const char *newW)
 		return 1;
 	}
 
-	/* Replace the words */
+	/* Replace the words */	
 	i = 0;
 	j = 0;
-
-	for ( i = 0; i < l;)
+	for ( i=0; i < l;)
 	{
-		if (strstr (str + i, oldW) == str + i )
+		if (strstr(str+i, oldW) == str+i )
 		{
-			if (newW[0] != '\0')
-				strcpy (&r[i], newW); /* Copy only if the new string is not empty */
-
+			if (newW[0] != '\0') strcpy(&r[i], newW); /* Copy only if the new string is not empty */
 			j += newWlen;
 			i += oldWlen;
 		}
@@ -186,23 +181,25 @@ int safe_replace (char **s, const char *oldW, const char *newW)
 
 	/* Terminate and cleanup */
 	r[j] = '\0';
+
 	free (str);
+
 	*s = r;
+
 	return 0;
 }
 
-int safe_wrap (char **s, int columns)
+int safe_wrap (char **s,int columns)
 {
 	int nextspace = 0;
-	int l, w;
+	int l,w;
 	char *t;
 
-	if ( *s == NULL )
-		return 1;
+	if ( *s == NULL ) return 1;
 
 	l = strlen (*s);
-	t = realloc (*s, l + 1); /* Make space */
-
+	
+	t = realloc (*s, l+1);  /* Make space */
 	if (t == NULL)
 	{
 		free (*s);
@@ -225,5 +222,6 @@ int safe_wrap (char **s, int columns)
 	}
 
 	*s = t;
+
 	return 0;
 }
